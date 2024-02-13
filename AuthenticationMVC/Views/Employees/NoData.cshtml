@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <main>
+        @ViewBag.message
+
+        <a href="@Url.Action(ViewBag.gotoAction, ViewBag.gotoController)">
+            @ViewBag.gotoText
+        </a>
+    </main>
+</body>
