@@ -50,13 +50,15 @@ namespace AuthenticationMVC.Models
         {
             using (AuthDBEntities context = new AuthDBEntities())
             {
-                var userRoles = (from user in context.Users
-                                 join roleMapping in context.UserRolesMappings
-                                 on user.ID equals roleMapping.UserID
-                                 join role in context.RoleMasters
-                                 on roleMapping.RoleID equals role.ID
-                                 where user.UserName == username
-                                 select role.RollName).ToArray();
+                var userRoles = (
+                    from user in context.Users
+                    join role in context.UserRolesMappings
+                    on user.ID equals role.UserID
+                    join roles in context.RoleMasters
+                    on role.RoleID equals roles.ID
+                    where user.UserName == username
+                    select roles.RollName
+                    ).ToArray();
                 /*
                  * it is taking a username parameter and based on the username, 
                  * the User Roles must be fetched as an array and returned.

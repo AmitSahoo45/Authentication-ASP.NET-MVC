@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -18,19 +19,22 @@
                 </button>
                 @Html.ActionLink("Employee Portal", "Index", "Employees", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+            <div class="navbar-dark">
+                <ul class="navbar navbar-inverse">
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Get Employee List", "Index", "Employees")</li>
-                        <li>@Html.ActionLink("Add Employee", "Create", "Employees")</li>
-                        <li><a>Hello - @User.Identity.Name</a></li>
-                        <li>@Html.ActionLink("Logout", "Logout", "Accounts")</li>
+                        <li class="m-lg-4">@Html.ActionLink("Get List", "Index", "Employees")</li>
+                        if (User.IsInRole("Admin") || User.IsInRole("User"))
+                        {
+                            <li class="m-lg-4">@Html.ActionLink("Create", "Create", "Employees")</li>
+                        }
+                        <li class="m-lg-4"><a>Hello - @User.Identity.Name</a></li>
+                        <li class="m-lg-4">@Html.ActionLink("Logout", "Logout", "Accounts")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Login", "Login", "Accounts")</li>
+                        <li class="m-lg-4">@Html.ActionLink("Login", "Login", "Accounts")</li>
                     }
                 </ul>
             </div>
@@ -43,6 +47,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
